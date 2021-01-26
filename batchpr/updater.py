@@ -246,10 +246,6 @@ class Updater(metaclass=abc.ABCMeta):
         self.run_command(f'git checkout upstream/{self.repo.default_branch}')
         self.run_command(f'git checkout -b {self.branch_name}')
 
-        # Initialize submodules (this is a no-op if there is no submodule)
-        self.run_command('git submodule init')
-        self.run_command('git submodule update')
-
     def commit_changes(self):
         """Commit repo changes in ``git`` staging area.
         If alternate ``self.author_name`` and ``self.author_email`` are
@@ -318,7 +314,7 @@ class Updater(metaclass=abc.ABCMeta):
         if p.returncode == 0:
             return output
         else:
-            raise Exception(f"Command '{command}' failed")
+            raise Exception(f"Command '{command}' failed with return code {p.returncode}")
 
     @abc.abstractmethod
     def process_repo(self):
