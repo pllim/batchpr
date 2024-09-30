@@ -106,6 +106,7 @@ class Updater(metaclass=abc.ABCMeta):
             try:
                 print('  > Ensuring fork exists (and creating if not)')
                 self.ensure_fork_set_up()
+                time.sleep(30)
             except Exception:
                 self.error("    An error occurred when trying to set up a fork")
                 continue
